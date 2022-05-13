@@ -27,11 +27,32 @@ p {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@font-face {
+   font-family: 'Glyphs';
+   src: url(../../../public/NMS-Glyphs-Mono.ttf) format('truetype');
+}
+
+.cords {
+  display: inline-block;
+  margin: 1.2rem auto;
+  border: none;
+  padding: 0;
+  width: 18ch;
+  background: repeating-linear-gradient(90deg, dimgrey 0, dimgrey 1ch, transparent 0, transparent 1.5ch) 0 100%/ 28ch 2px no-repeat;
+  font-family: Glyphs, Helvetica, sans-serif;
+  letter-spacing: 0.5ch;
+  text-transform: uppercase;
+}
+.cords:focus {
+  outline: none;
+  color: #fff;
+}
+.cords::placeholder {
+  letter-spacing: 0.5ch;
+}
+
+@layer components {
+  .input {
+    font-family: NMSFuturaProBook, Helvetica, sans-serif;
   }
 }

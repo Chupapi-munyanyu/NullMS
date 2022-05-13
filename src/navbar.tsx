@@ -9,23 +9,23 @@ function Navbar() {
   var postclass = "text-gray-300 hover:bg-[#03DAC6] hover:text-white px-3 py-2 rounded-md text-base font-medium";
   var latestclass = "text-gray-300 hover:bg-[#03DAC6] hover:text-white px-3 py-2 rounded-md text-base font-medium";
 
+  if (location.pathname === "/")
+  {
+      homeclass = "bg-[#028f81] text-white px-3 py-2 rounded-md text-base font-medium";
+  }
+  if (location.pathname === "/search")
+  {
+      searchclass = "bg-[#028f81] text-white px-3 py-2 rounded-md text-base font-medium";
+  }
+  if (location.pathname === "/post")
+  {
+      postclass = "bg-[#028f81] text-white px-3 py-2 rounded-md text-base font-medium";
+  }
+  if (location.pathname === "/latest")
+  {
+      latestclass = "bg-[#028f81] text-white px-3 py-2 rounded-md text-base font-medium";
+  }
 
-  if (location.pathname == "/")
-  {
-      var homeclass = "bg-[#028f81] text-white px-3 py-2 rounded-md text-base font-medium";
-  }
-  if (location.pathname == "/search")
-  {
-      var searchclass = "bg-[#028f81] text-white px-3 py-2 rounded-md text-base font-medium";
-  }
-  if (location.pathname == "/post")
-  {
-      var postclass = "bg-[#028f81] text-white px-3 py-2 rounded-md text-base font-medium";
-  }
-  if (location.pathname == "/latest")
-  {
-      var latestclass = "bg-[#028f81] text-white px-3 py-2 rounded-md text-base font-medium";
-  }
   return (
   <nav className="shadow-2xl bg-[#1E1E1E]">
   <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -41,7 +41,7 @@ function Navbar() {
 
             <a href="/post" className={postclass}>Post</a>
 
-            <a href="/latest" className="text-gray-300 hover:bg-[#03DAC6] hover:text-white px-3 py-2 rounded-md text-base font-medium">Latest</a>
+            <a href="/latest" className={latestclass}>Latest</a>
           </div>
         </div>
       </div>
