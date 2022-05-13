@@ -1,8 +1,11 @@
 import React from 'react';
 import './App.css';
+import Navbar from './navbar';
 
 function App() {
   return (
+    <>
+    <Navbar/>
     <div className="App">
       <header className="App-header">
         <p>No Man's Sky</p>
@@ -16,6 +19,7 @@ function App() {
         </a>
       </header>
     </div>
+    </>
   );
 }
 
