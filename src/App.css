@@ -1,16 +1,13 @@
+@charset "UTF-8";
+@import url('https://nmscd.github.io/No-Mans-Sky-Universal-Font/assets/font/NMSFuturaProBook_Kerned/Web-TT/NMSFuturaProBook_Kerned.css');
+
+p {
+  font-size: 2em;
+  font-family: NMSFuturaProBook, Helvetica, sans-serif;
+}
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
