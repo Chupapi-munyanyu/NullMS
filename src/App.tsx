@@ -1,25 +1,14 @@
-import React from 'react';
-import './App.css';
-import Navbar from './navbar';
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "./pages/home/home";
+import { Post } from "./pages/post/post";
 function App() {
   return (
-    <>
-    <Navbar/>
-    <div className="App">
-      <header className="App-header">
-        <p>No Man's Sky</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-    </>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="post" element={<Post />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

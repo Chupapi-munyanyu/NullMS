@@ -1,0 +1,10 @@
+@charset "UTF-8";
+@import url('https://nmscd.github.io/No-Mans-Sky-Universal-Font/assets/font/NMSFuturaProBook_Kerned/Web-TT/NMSFuturaProBook_Kerned.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+a {
+  font-size: 10em;
+  font-family: NMSFuturaProBook, Helvetica, sans-serif;
+}
