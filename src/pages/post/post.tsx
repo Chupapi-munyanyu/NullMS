@@ -1,6 +1,7 @@
 import React from 'react';
 import './post.css';
 import Navbar from '../../navbar';
+import Footer from '../../footer';
 
 export const Post = () => {
   return (
@@ -14,6 +15,7 @@ export const Post = () => {
         <input maxLength={12} className="cords" id="cords" type="text" placeholder="1234567890AB"/>
       </header>
     </div>
+    <Footer/>
     </>
   );
 }

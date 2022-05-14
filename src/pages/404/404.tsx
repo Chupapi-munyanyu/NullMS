@@ -1,19 +1,18 @@
 import React from 'react';
-import './home.css';
+import './404.css';
 import Navbar from '../../navbar';
 import Footer from '../../footer';
 
-export const Home = () => {
-  return (
+export const Notfound = () => {
+    return(
     <>
     <Navbar/>
     <div className="App">
       <header className="App-header">
-        <p>Null Man's Sky</p>
+        <p>Page not found</p>
       </header>
     </div>
     <Footer/>
     </>
-  );
+    );
 }
-
