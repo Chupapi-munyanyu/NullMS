@@ -18,7 +18,7 @@ p {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -79,5 +79,9 @@ p {
 }
 
 .life {
+  @apply block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400
+}
+
+.eco {
   @apply block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400
 }
