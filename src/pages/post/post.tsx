@@ -2,9 +2,38 @@ import React from 'react';
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { useState } from "react";
 import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
 import './post.css';
 import Navbar from '../../navbar';
 import Footer from '../../footer';
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
 
 export const Post = () => {
   const [images, setImages] = React.useState([]);
@@ -17,7 +46,17 @@ export const Post = () => {
     console.log(imageList, addUpdateIndex);
     setImages(imageList as never[]);
   };
+  function tabProps(index: number) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
+  const [value, setValue] = React.useState(0);
 
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
   const [glyphs, setText] = useState("")
 
   return (
@@ -28,8 +67,9 @@ export const Post = () => {
           <p>Create Post</p>
           <Box width="40%">
             <Box position="relative">
-              <input type="text" id="nickname" className="block px-2.5 pb-2.5 pt-4 w-full text-white bg-transparent rounded-lg border-2 border-cyan-300 appearance-none dark:text-white dark:border-cyan-600 dark:focus:border-cyan-500 focus:outline-none focus:ring-1 focus:border-cyan-600 peer" placeholder=" " />
-              <label htmlFor="nickname" className="absolute text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-8 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-[#121212] px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-focus:dark:text-cyan-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-3 peer-focus:scale-75 peer-focus:-translate-y-8 left-1">Nickname</label>
+              <input required type="text" id="nickname" className="block px-2.5 pb-2.5 pt-4 w-full text-white bg-transparent rounded-lg border-2 border-cyan-300 appearance-none dark:text-white dark:border-cyan-600 dark:focus:border-cyan-500 focus:outline-none focus:ring-1 focus:border-cyan-600 peer" placeholder=" " />
+              <label htmlFor="nickname" className="absolute text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-8 scale-75 
+              top-3 z-10 origin-[0] bg-white dark:bg-[#121212] px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-focus:dark:text-cyan-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-3 peer-focus:scale-75 peer-focus:-translate-y-8 left-1">Nickname</label>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
                 <Box>
@@ -46,7 +86,7 @@ export const Post = () => {
           </Box>
           <Box >
             <label htmlFor="galaxy" className="gal">Galaxy: </label>
-            <input value={glyphs} onChange={(e) => setText(e.target.value)} maxLength={12} className="glyph" id="glyph" type="text" placeholder="1234567890AB" />
+            <input value={glyphs} pattern="[a-fA-F0-9]" onChange={(e) => setText(e.target.value)} maxLength={12} className="glyph" id="glyph" type="text" placeholder="1234567890AB" />
             <br />
             <button className="glyph_button" onClick={() => { glyphs.length >= 12 ? alert("Maximum glyphs") : setText(glyphs + '1')  }}>1</button>
             <button className="glyph_button" onClick={() => { glyphs.length >= 12 ? alert("Maximum glyphs") : setText(glyphs + '2')  }}>2</button>
@@ -66,39 +106,49 @@ export const Post = () => {
             <button className="glyph_button" onClick={() => { glyphs.length >= 12 ? alert("Maximum glyphs") : setText(glyphs + 'E')  }}>E</button>
             <button className="glyph_button" onClick={() => { glyphs.length >= 12 ? alert("Maximum glyphs") : setText(glyphs + 'F')  }}>F</button>
           </Box>
-          <Box sx={{display: 'flex', justifyContent: 'space-between'}} width="22em">
-          <Box width="10em">
-            <label htmlFor="lifeform" className="life">Select Lifeform</label>
-            <select id="lifeform" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500">
-              <option selected>Choose a lifeform</option>
-              <option value="VK">Vy'keen</option>
-              <option value="GEK">Gek</option>
-              <option value="KX">Korvax</option>
-              <option value="AD">Abandoned</option>
-            </select>
+            <Box sx={{display: 'flex', justifyContent: 'space-between'}} width="22em">
+            <Box width="10em">
+              <label htmlFor="lifeform" className="life">Select Lifeform</label>
+              <select id="lifeform" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500">
+                <option selected>Choose a lifeform</option>
+                <option value="VK">Vy'keen</option>
+                <option value="GEK">Gek</option>
+                <option value="KX">Korvax</option>
+                <option value="AD">Abandoned</option>
+              </select>
+            </Box>
+            <Box width="10em">
+              <label htmlFor="economy" className="eco">Select Economy</label>
+              <select id="economy" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500">
+                <option selected>Choose Economy</option>
+                <option value="T1">T1</option>
+                <option value="T2">T2</option>
+                <option value="T3">T3</option>
+                <option value="BM">Black Market</option>
+              </select>
+            </Box>
           </Box>
-          <Box width="10em">
-            <label htmlFor="economy" className="eco">Select Economy</label>
-            <select id="economy" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500">
-              <option selected>Choose Economy</option>
-              <option value="T1">T1</option>
-              <option value="T2">T2</option>
-              <option value="T3">T3</option>
-              <option value="BM">Black Market</option>
-            </select>
-          </Box>
+          <br></br>
+          <Box sx={{ width: '100%' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <Tabs value={value} onChange={handleChange}>
+                <Tab label="Ship" {...tabProps(0)} />
+                <Tab label="Freighter" {...tabProps(1)} />
+                <Tab label="Multi-Tool" {...tabProps(2)} />
+              </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+              <div>124</div>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              Item Two
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              Item Three
+            </TabPanel>
           </Box>
 
-          <nav className="nav nav-tabs row" id="typeTabs" role="tablist">
-          <button type="button" className="nav-link focus:outline-none focus:ring-0" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
-            Home
-          </button>
-          </nav>
-          <div className="tab-content" id="pills-tabContent">
-          <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            Tab 1 content
-          </div>
-          </div>
+
           <Box>
             <ImageUploading
               multiple
@@ -147,7 +197,9 @@ export const Post = () => {
                 </Box>
               )}
             </ImageUploading>
-            <button className="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">SUBMIT</button>
+            <button className="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none
+             focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-400
+              dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">SUBMIT</button>
           </Box>
         </Box>
         </body>
