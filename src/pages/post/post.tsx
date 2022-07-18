@@ -1,13 +1,37 @@
 import React from 'react';
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { useState } from "react";
+
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 import './post.css';
 import Navbar from '../../navbar';
 import Footer from '../../footer';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      light: '#50bdbc',
+      main: '#008c8c',
+      dark: '#005e5f',
+      contrastText: '#000',
+    },
+    secondary: {
+      light: '#12f4da',
+      main: '#6fffff',
+      dark: '#00c0a9',
+      contrastText: '#000',
+    },
+  },
+});
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -53,14 +77,19 @@ export const Post = () => {
     };
   }
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
   const [glyphs, setText] = useState("")
+  
+  const [ship, setShip] = React.useState('');
+  
+  const selectShip = (event: SelectChangeEvent) => {
+    setShip(event.target.value as string);
+    };
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Navbar />
         <body className="Post-header">
         <Box width="36em" px="2em">
@@ -128,17 +157,32 @@ export const Post = () => {
               </select>
             </Box>
           </Box>
+          
           <br></br>
           <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs value={value} onChange={handleChange}>
+            <Box sx={{ textColor: 'primary', borderBottom: 1, borderColor: 'divider' }}>
+              <Tabs value={value} onChange={handleChange} textColor="inherit"
+              indicatorColor="primary" selectionFollowsFocus>
                 <Tab label="Ship" {...tabProps(0)} />
                 <Tab label="Freighter" {...tabProps(1)} />
                 <Tab label="Multi-Tool" {...tabProps(2)} />
               </Tabs>
             </Box>
+
             <TabPanel value={value} index={0}>
-              <div>124</div>
+              <Box sx={{textColor: 'inherit'}}>
+                  <InputLabel id="select-ship">Ship</InputLabel>
+                  <Select
+                    labelId="select-ship"
+                    id="select-ships"
+                    value={ship}
+                    label="Age"
+                    onChange={selectShip}>
+                    <MenuItem value={'fighter'}>Fighter</MenuItem>
+                    <MenuItem value={'hauler'}>Hauler</MenuItem>
+                    <MenuItem value={'shuttle'}>Shuttle</MenuItem>
+                  </Select>
+              </Box>
             </TabPanel>
             <TabPanel value={value} index={1}>
               Item Two
@@ -147,7 +191,6 @@ export const Post = () => {
               Item Three
             </TabPanel>
           </Box>
-
 
           <Box>
             <ImageUploading
@@ -204,6 +247,6 @@ export const Post = () => {
         </Box>
         </body>
       <Footer />
-    </>
+    </ThemeProvider>
   );
 }
